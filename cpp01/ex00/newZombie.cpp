@@ -1,0 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   newZombie.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/09 14:57:02 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/09 15:33:57 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Zombie.hpp"
+
+Zombie *newZombie(std::string name)
+{
+    return new Zombie(name);
+}
+
+/*
+new Zombie(name) : alloue sur le heap + appelle constructeur.
+return ... : renvoie un pointeur sur le nouvel objet.
+Duree de vie : jusqu'a delete.
+*/
