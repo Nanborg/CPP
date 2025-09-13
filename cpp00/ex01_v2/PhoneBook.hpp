@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 18:04:22 by nicolsan          #+#    #+#             */
-/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*   Created: 2025/08/13 11:51:51 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 19:05:46 by nicolsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
+#include "Contact.hpp"
 
-#include "Animal.hpp"
-#include "Brain.hpp"
-
-class Cat : public Animal
+class PhoneBook
 {
 private:
-    Brain *brain;
+    Contact book[8];
+    int count;
+    int next;
 
 public:
-    Cat();
-    Cat(const Cat &other);
-    Cat &operator=(const Cat &other);
-    virtual ~Cat();
-
-    virtual void makeSound() const;
+    PhoneBook();
+    void add();
+    void search() const;
 };
 #endif

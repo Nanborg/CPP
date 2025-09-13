@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 18:04:22 by nicolsan          #+#    #+#             */
-/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*   Created: 2025/08/13 11:51:20 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 19:29:14 by nicolsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
+#ifndef CONTACT_HPP
+#define CONTACT_HPP
+#include <string>
+#include <iostream>
 
-#include "Animal.hpp"
-#include "Brain.hpp"
-
-class Cat : public Animal
+class Contact
 {
 private:
-    Brain *brain;
+	std::string first, last, nick, phone, secret;
 
 public:
-    Cat();
-    Cat(const Cat &other);
-    Cat &operator=(const Cat &other);
-    virtual ~Cat();
-
-    virtual void makeSound() const;
+	Contact();
+	bool read_Stdin();				  // lit tous les champs (retourne false si EOF)
+	void prt_Search(int index) const; // ligne 10 colonnes pour SEARCH
+	void prt_Details() const;		  // détail d’un contact
 };
 #endif

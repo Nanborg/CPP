@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 18:04:22 by nicolsan          #+#    #+#             */
-/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*   Created: 2025/09/13 18:04:07 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:07:55 by nicolsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-#define CAT_HPP
-
 #include "Animal.hpp"
-#include "Brain.hpp"
 
-class Cat : public Animal
+Animal::Animal() : type("Animal")
 {
-private:
-    Brain *brain;
+    std::cout << "[A] Constructor\n";
+}
+Animal::Animal(const Animal &o) : type(o.type)
+{
+    std::cout << "[A] Copy ctor\n";
+}
+Animal &Animal::operator=(const Animal &o)
+{
+    type = o.type;
+    std::cout << "[A] Copy Assignement\n";
+    return *this;
+}
+Animal::~Animal()
+{
+    std::cout << "[A] Destructor\n";
+}
 
-public:
-    Cat();
-    Cat(const Cat &other);
-    Cat &operator=(const Cat &other);
-    virtual ~Cat();
-
-    virtual void makeSound() const;
-};
-#endif
+std::string Animal::getType() const
+{
+    return type;
+}
