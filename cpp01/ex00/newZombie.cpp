@@ -17,8 +17,3 @@ Zombie *newZombie(std::string name)
     return new Zombie(name);
 }
 
-/*
-new Zombie(name) : alloue sur le heap + appelle constructeur.
-return ... : renvoie un pointeur sur le nouvel objet.
-Duree de vie : jusqu'a delete.
-*/

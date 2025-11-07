@@ -57,11 +57,3 @@ void Harl::complain(std::string level)
         i++;
     }
 }
-
-/*
-Harl::debug/info/warning/error : méthodes privées affichant un message.
-complain(level) :
-- Associe chaînes ("DEBUG", ...) à pointeurs sur méthodes.
-- Boucle cherche correspondance puis appelle (this->*act[i])().
-→ Supprime les if/else, rend le code extensible et propre.
-*/

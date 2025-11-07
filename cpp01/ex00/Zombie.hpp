@@ -31,11 +31,3 @@ void randomChump(std::string name);
 
 #endif
 
-/*
-class Zombie : définition d'une classe.
-private : membres internes cachés.
-public : interface accessible.
-Zombie(...) : constructeur.
-~Zombie() : destructeur.
-newZombie / randomChump : prototypes de fonctions externes.
-*/

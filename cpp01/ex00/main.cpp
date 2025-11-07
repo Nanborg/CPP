@@ -14,19 +14,9 @@
 
 int main()
 {
-    // Zombie alloué sur la HEAP
     Zombie *heapZombie = newZombie("Foo");
     heapZombie->announce();
-    delete heapZombie; // Indispensable pour libérer la mémoire et éviter les fuites
-
-    // Zombie alloué sur la STACK
+    delete heapZombie;
     randomChump("Bar");
-
     return 0;
 }
-/*
-Zombie* heapZombie = newZombie("Foo"); : crée un Zombie sur le heap.
-heapZombie->announce(); : appel via pointeur.
-delete heapZombie; : libère mémoire + appelle destructeur.
-randomChump("Bar"); : crée un Zombie local sur la stack, détruit auto en fin de fonction.
-*/

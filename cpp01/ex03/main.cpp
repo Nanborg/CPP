@@ -45,8 +45,3 @@ int main(void)
 
     return 0;
 }
-/*
-Test HumanA : créé armé, suit les changements de l’arme (référence).
-Test HumanB : créé sans arme, peut en recevoir plus tard, suit aussi les changements (pointeur).
-Scopes {} séparent les tests.
-*/

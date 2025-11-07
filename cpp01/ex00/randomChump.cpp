@@ -18,7 +18,3 @@ void randomChump(std::string name)
     zombie.announce();
 }
 
-/*
-Zombie zombie(name); : objet local sur la stack.
-Durée de vie : limitée à la fonction, détruit automatiquement à la fin.
-*/

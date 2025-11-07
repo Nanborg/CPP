@@ -27,12 +27,3 @@ int main()
               << stringREF << std::endl;
     return 0;
 }
-
-/*
-str : variable de base.
-stringPTR = &str : pointeur vers str (stocke une adresse, nécessite * pour accéder à la valeur, peut être réassigné).
-stringREF = str : référence (alias obligatoire, toujours initialisée, ne peut pas changer de cible).
-Affichages :
-- &str, stringPTR, &stringREF ---> même adresse.
-- str, *stringPTR, stringREF  ---> même valeur.
-*/

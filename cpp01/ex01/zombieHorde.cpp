@@ -25,8 +25,3 @@ Zombie *zombieHorde(int N, std::string name)
     return h;
 }
 
-/*
-if (N <= 0) return 0; : gère cas invalides.
-new Zombie[N] : alloue un tableau de N Zombies sur le heap.
-for (...) setName(name) : initialise chaque zombie.
-*/

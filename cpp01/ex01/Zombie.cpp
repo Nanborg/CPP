@@ -26,8 +26,3 @@ void Zombie::announce(void) const
     std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-/*
-Zombie() : constructeur par défaut, nécessaire pour new Zombie[N].
-setName() : attribue un nom après création.
-~Zombie() : affiche la destruction (debug).
-*/

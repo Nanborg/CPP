@@ -28,7 +28,3 @@ public:
 Zombie *zombieHorde(int N, std::string name);
 #endif
 
-/*
-Zombie : classe avec constructeur par défaut, destructeur, setName, announce.
-zombieHorde : crée un tableau de Zombies.
-*/

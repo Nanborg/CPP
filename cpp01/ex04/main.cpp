@@ -68,28 +68,3 @@ int main(int ac, char **av)
     return 0;
 }
 
-/*
-replace_all(s, s1, s2) :
-- Remplace toutes les occurrences de s1 par s2 dans s.
-- Ignore si s1 est vide.
-- Utilise erase/insert (pas std::string::replace).
-- Avance pos de s2.size() pour éviter les boucles si s2 contient s1.
-
-main :
-- Attend 3 arguments : <fichier> <à_trouver> <remplacement>.
-- Lit le fichier en mémoire en conservant les '\n'.
-- Appelle replace_all puis écrit <fichier>.replace.
-- Gère les erreurs d’ouverture/écriture de fichiers.
-*/
-
-/*
-Tests à faire :
-1. Remplacement simple (mot existant).
-2. Plusieurs occurrences remplacées.
-3. Sensible à la Maj/Min ("The" ≠ "the").
-4. Remplacer par chaîne vide (suppression).
-5. Cas piégeux : s2 contient s1 (évite boucle infinie).
-6. Remplacement dans une sous-chaîne.
-7. Chaîne absente (copie identique).
-8. Erreurs : mauvais arguments, fichier inexistant, sortie impossible.
-*/

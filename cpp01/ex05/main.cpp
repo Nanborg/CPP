@@ -20,8 +20,3 @@ int main()
     h.complain("ERROR");
     return 0;
 }
-
-/*
-Test : crée un Harl et appelle complain() avec DEBUG, INFO, WARNING, ERROR.
-Vérifie que chaque niveau déclenche le bon message.
-*/

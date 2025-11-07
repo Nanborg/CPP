@@ -25,8 +25,3 @@ int main()
     return 0;
 }
 
-/*
-zombieHorde(N, ...) : crée N zombies sur le heap.
-for (...) h[i].announce(); : chaque zombie s’annonce.
-delete[] h; : libère tout le tableau (appelle chaque destructeur).
-*/

@@ -25,9 +25,3 @@ public:
 };
 
 #endif
-
-
-/*
-HumanA : doit toujours avoir une arme.
-weapon est une référence toujours valide, jamais nulle, initialisée au constructeur.
-*/
