@@ -12,18 +12,20 @@
 
 #ifndef HUMANA_HPP
 #define HUMANA_HPP
-#include "Weapon.hpp"
+
 #include <string>
-class HumanA
-{
+#include "Weapon.hpp"
+
+class HumanA {
     std::string name;
     Weapon &weapon;
-
 public:
-    HumanA(std::string n, Weapon &w) : name(n), weapon(w) {}
+    HumanA(const std::string &n, Weapon &w);
     void attack() const;
 };
+
 #endif
+
 
 /*
 HumanA : doit toujours avoir une arme.

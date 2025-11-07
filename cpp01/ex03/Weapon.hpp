@@ -12,19 +12,16 @@
 
 #ifndef WEAPON_HPP
 #define WEAPON_HPP
+
 #include <string>
-class Weapon
+
+class Weapon 
 {
     std::string type;
-
 public:
-    Weapon(std::string t) : type(t) {}
-    const std::string &getType() const { return type; }
-    void setType(std::string t) { type = t; }
+    Weapon(const std::string &t);
+    const std::string &getType() const;
+    void setType(const std::string &t);
 };
-#endif
 
-/*
-Weapon : type privé, modifiable via setType().
-getType() retourne une référence const → efficace (pas de copie) et sûr (lecture seule).
-*/
+#endif
