@@ -22,6 +22,7 @@ class HumanA {
 public:
     HumanA(const std::string &n, Weapon &w);
     void attack() const;
+    ~HumanA();
 };
 
 #endif

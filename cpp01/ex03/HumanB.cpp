@@ -23,3 +23,5 @@ void HumanB::attack() const {
     else
         std::cout << name << " has no weapon" << std::endl;
 }
+
+HumanB::~HumanB() {}

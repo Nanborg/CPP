@@ -23,6 +23,7 @@ public:
     HumanB(const std::string &n);
     void setWeapon(Weapon &w);
     void attack() const;
+    ~HumanB();
 };
 
 #endif
