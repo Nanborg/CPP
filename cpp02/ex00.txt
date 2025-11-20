@@ -1,0 +1,127 @@
+
+
+#include "Fixed.hpp"
+#include <iostream>
+
+Fixed::Fixed() : rawBits(0)
+{
+    std::cout << "Default constructor called" << std::endl;
+}
+
+Fixed::Fixed(const Fixed &other)
+{
+    std::cout << "Copy constructor called" << std::endl;
+    this->rawBits = other.getRawBits();
+}
+
+Fixed &Fixed::operator=(const Fixed &other)
+{
+    std::cout << "Copy assignment operator called" << std::endl;
+    if (this != &other)
+        this->rawBits = other.getRawBits();
+    return *this;
+}
+
+Fixed::~Fixed()
+{
+    std::cout << "Destructor called" << std::endl;
+}
+
+int Fixed::getRawBits() const
+{
+    std::cout << "getRawBits member function called" << std::endl;
+    return this->rawBits;
+}
+
+void Fixed::setRawBits(int const raw)
+{
+    std::cout << "setRawBits member function called" << std::endl;
+    this->rawBits = raw;
+}
+
+/*
+Implémentation de Fixed :
+- Constructeur par défaut : init rawBits à 0.
+- Constructeur de copie : copie rawBits.
+- Opérateur = : gère l’affectation (avec auto-affectation).
+- Destructeur : affiche un message (debug).
+- getRawBits / setRawBits : accès au membre privé.
+*/
+
+
+
+#ifndef FIXED_HPP
+#define FIXED_HPP
+
+class Fixed
+{
+private:
+    int rawBits;
+    static const int f_Bits = 8;
+
+public:
+    Fixed();
+    Fixed(const Fixed &other);
+    Fixed &operator=(const Fixed &other);
+
+    ~Fixed();
+    int getRawBits() const;
+    void setRawBits(int const raw);
+};
+
+#endif
+
+/*
+Classe Fixed :
+- Membres : int rawBits, static const int f_Bits=8.
+- Forme canonique orthodoxe (constructeur défaut, copie, opérateur=, destructeur).
+- Accesseurs : getRawBits / setRawBits.
+*/
+
+
+
+#include <iostream>
+#include "Fixed.hpp"
+
+int main(void)
+{
+    Fixed a;
+    Fixed b(a);
+    Fixed c;
+
+    c = b;
+
+    std::cout << a.getRawBits() << std::endl;
+    std::cout << b.getRawBits() << std::endl;
+    std::cout << c.getRawBits() << std::endl;
+    return 0;
+}
+
+/*
+- a : constructeur par défaut.
+- b(a) : constructeur de copie.
+- c=b : opérateur d’affectation.
+- Affiche rawBits pour valider copie et affectation.
+*/
+
+NAME = first_canon
+GCC = g++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+
+SRCS = main.cpp Fixed.cpp
+OBJS = $(SRCS:.cpp=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(GCC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

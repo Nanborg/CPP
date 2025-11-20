@@ -19,7 +19,7 @@ Fixed::Fixed() : Bits(0)
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed &other) : Bits(other.Bits)
+Fixed::Fixed(const Fixed &other)
 {
     std::cout << "Copy constructor called" << std::endl;
     *this = other;
@@ -79,11 +79,11 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 }
 
 /*
-Implémentation Fixed :
-- Constructeurs : défaut, copie, int→fixed (<<), float→fixed (roundf).
-- Opérateur = : copie Bits (avec auto-affectation).
+Implementation Fixed :
+- Constructeurs : defaut, copie, int→fixed (<<), float→fixed (roundf).
+- Operateur = : copie Bits (avec auto-affectation).
 - Destructeur : message debug.
-- get/setRawBits : accès brut.
+- get/setRawBits : acces brut.
 - toFloat / toInt : conversions inverses.
 - operator<< : affiche en float.
 */

@@ -21,7 +21,7 @@ Fixed::Fixed() : rawBits(0)
 Fixed::Fixed(const Fixed &other)
 {
     std::cout << "Copy constructor called" << std::endl;
-    this->rawBits = other.getRawBits();
+    this->rawBits = other.rawBits;
 }
 
 Fixed &Fixed::operator=(const Fixed &other)
@@ -37,7 +37,7 @@ Fixed::~Fixed()
     std::cout << "Destructor called" << std::endl;
 }
 
-int Fixed::getRawBits() const
+int Fixed::getRawBits(void) const
 {
     std::cout << "getRawBits member function called" << std::endl;
     return this->rawBits;
@@ -48,12 +48,3 @@ void Fixed::setRawBits(int const raw)
     std::cout << "setRawBits member function called" << std::endl;
     this->rawBits = raw;
 }
-
-/*
-Implémentation de Fixed :
-- Constructeur par défaut : init rawBits à 0.
-- Constructeur de copie : copie rawBits.
-- Opérateur = : gère l’affectation (avec auto-affectation).
-- Destructeur : affiche un message (debug).
-- getRawBits / setRawBits : accès au membre privé.
-*/

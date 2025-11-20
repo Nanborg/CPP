@@ -36,10 +36,10 @@ int main(void)
 
 /*
 Test :
-- a : défaut.
+- a : defaut.
 - b(10) : int→Fixed.
 - c(42.42f) : float→Fixed.
 - d(b) : copie.
 - a = Fixed(1234.4321f) : affectation d’un temporaire.
-- Vérifie affichage (operator<<) et conversion toInt().
+- Verifie affichage (operator<<) et conversion toInt().
 */

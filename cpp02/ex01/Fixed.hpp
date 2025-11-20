@@ -45,5 +45,5 @@ Classe Fixed :
 - Membres : int Bits, static const int f_Bits=8.
 - Forme canonique + constructeurs int/float.
 - Conversions : toFloat(), toInt().
-- Surcharge operator<< pour affichage.
+- Surcharge operator << pour affichage.
 */
