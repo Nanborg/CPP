@@ -1,0 +1,344 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:07 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:07:55 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Animal.hpp"
+
+Animal::Animal() : type("Animal")
+{
+    std::cout << "[A] Constructor\n";
+}
+Animal::Animal(const Animal &o) : type(o.type)
+{
+    std::cout << "[A] Copy ctor\n";
+}
+Animal &Animal::operator=(const Animal &o)
+{
+    type = o.type;
+    std::cout << "[A] Copy Assignement\n";
+    return *this;
+}
+Animal::~Animal()
+{
+    std::cout << "[A] Destructor\n";
+}
+
+std::string Animal::getType() const
+{
+    return type;
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:10 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:16:02 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
+
+#include <string>
+#include <iostream>
+
+class Animal
+{
+protected:
+    std::string type;
+
+public:
+    Animal();
+    Animal(const Animal &other);
+    Animal &operator=(const Animal &other);
+    virtual ~Animal();
+
+    std::string getType() const;
+    virtual void makeSound() const = 0; // PURE V
+};
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Brain.cpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:13 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:30 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Brain.hpp"
+
+Brain::Brain()
+{
+    std::cout << "[B] Constructor\n";
+}
+Brain::Brain(const Brain &o)
+{
+    int i = 0;
+    while (i < 100)
+    {
+        ideas[i] = o.ideas[i];
+        i++;
+    }
+    std::cout << "[B] Copy Constructor\n";
+}
+Brain &Brain::operator=(const Brain &o)
+{
+    if (this != &o)
+    {
+        int i = 0;
+        while (i < 100)
+        {
+            ideas[i] = o.ideas[i];
+            i++;
+        }
+    }
+    std::cout << "[B] Copy Assignment\n";
+    return *this;
+}
+Brain::~Brain()
+{
+    std::cout << "[B] Destructor\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:16 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:30 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef BRAIN_HPP
+#define BRAIN_HPP
+#include <string>
+#include <iostream>
+
+class Brain
+{
+private:
+    std::string ideas[100];
+
+public:
+    Brain();
+    Brain(const Brain &other);
+    Brain &operator=(const Brain &other);
+    ~Brain();
+};
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:19 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Cat.hpp"
+#include <iostream>
+
+Cat::Cat()
+{
+    type = "Cat";
+    brain = new Brain();
+    std::cout << "[C] Constructor\n";
+}
+Cat::Cat(const Cat &o) : Animal(o)
+{
+
+    brain = new Brain(*o.brain);
+    std::cout << "[C] Copy Constructor\n";
+}
+
+Cat &Cat::operator=(const Cat &o)
+{
+    if (this != &o)
+    {
+        Animal::operator=(o);
+        Brain *newBrain = new Brain(*o.brain);
+        delete brain;
+        brain = newBrain;
+    }
+    std::cout << "[C] Copy Assignment\n";
+    return *this;
+}
+
+Cat::~Cat()
+{
+    delete brain;
+    std::cout << "[C] Destructor\n";
+}
+void Cat::makeSound() const
+{
+    std::cout << "Meow Meow\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:22 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CAT_HPP
+#define CAT_HPP
+
+#include "Animal.hpp"
+#include "Brain.hpp"
+
+class Cat : public Animal
+{
+private:
+    Brain *brain;
+
+public:
+    Cat();
+    Cat(const Cat &other);
+    Cat &operator=(const Cat &other);
+    virtual ~Cat();
+
+    virtual void makeSound() const;
+};
+#endif/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:25 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:29 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Dog.hpp"
+#include <iostream>
+
+Dog::Dog()
+{
+    type = "Dog";
+    brain = new Brain();
+    std::cout << "[D] Constructor\n";
+}
+Dog::Dog(const Dog &o) : Animal(o)
+{
+    brain = new Brain(*o.brain);
+    std::cout << "[D] Copy Constructor\n";
+}
+Dog &Dog::operator=(const Dog &o)
+{
+    if (this != &o)
+    {
+        Animal::operator=(o);
+        Brain *newBrain = new Brain(*o.brain);
+        delete brain;
+        brain = newBrain;
+    }
+    std::cout << "[D] Copy Assignment\n";
+    return *this;
+}
+Dog::~Dog()
+{
+    delete brain;
+    std::cout << "[D] Destructor\n";
+}
+void Dog::makeSound() const
+{
+    std::cout << "Woof Woof\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:28 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:28 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DOG_HPP
+#define DOG_HPP
+
+#include "Animal.hpp"
+#include "Brain.hpp"
+
+class Dog : public Animal
+{
+private:
+    Brain *brain;
+
+public:
+    Dog();
+    Dog(const Dog &other);
+    Dog &operator=(const Dog &other);
+    virtual ~Dog();
+
+    virtual void makeSound() const;
+};
+#endifNAME = ex01
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp Brain.cpp
+HEADERS     = Animal.hpp Dog.hpp Cat.hpp Brain.hpp
+OBJS = $(SRCS:.cpp=.o)
+all: $(NAME)
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+$(OBJS): $(HEADERS)
+clean:
+	rm -f $(OBJS)
+fclean: clean
+	rm -f $(NAME)
+re: fclean all
+.PHONY: all clean fclean re
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 18:04:31 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 18:10:28 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Dog.hpp"
+#include "Cat.hpp"
+
+int main()
+{
+    Animal *d = new Dog();
+    Animal *c = new Cat();
+    d->makeSound();
+    c->makeSound();
+    delete d;
+    delete c;
+}

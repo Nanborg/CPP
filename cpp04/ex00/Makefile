@@ -1,12 +1,15 @@
-GCC = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+NAME = ex00
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS = $(SRCS:.cpp=.o)
-NAME = ex00
+HEADERS     = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
 
 all: $(NAME)
+
 $(NAME): $(OBJS)
-	$(GCC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+$(OBJS): $(HEADERS)
 clean:
 	rm -f $(OBJS)
 fclean: clean

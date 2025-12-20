@@ -1,0 +1,404 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:17:32 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:58:05 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Animal.hpp"
+
+Animal::Animal() : type("Animal")
+{
+    std::cout << "[A] Constructor\n";
+}
+Animal::Animal(const Animal &o) : type(o.type)
+{
+    std::cout << "[A] Copy Constructor\n";
+}
+Animal &Animal::operator=(const Animal &o)
+{
+    std::cout << "[A] Copy Assignment\n";
+    if (this != &o)
+        type = o.type;
+    return *this;
+}
+Animal::~Animal()
+{
+    std::cout << "[A] Destructor\n";
+}
+std::string Animal::getType() const
+{
+    return type;
+}
+void Animal::makeSound() const
+{
+    std::cout << "[A] ???\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:13:20 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 16:26:29 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ANIMAL_HPP
+#define ANIMAL_HPP
+
+#include <string>
+#include <iostream>
+
+class Animal
+{
+protected:
+    std::string type;
+
+public:
+    Animal();
+    Animal(const Animal &other);
+    Animal &operator=(const Animal &other);
+    virtual ~Animal();
+
+    std::string getType() const;
+    virtual void makeSound() const;
+};
+#endif/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:26:41 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:54:21 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Cat.hpp"
+#include <iostream>
+
+Cat::Cat()
+{
+    type = "Cat";
+    std::cout << "[C] Constructor\n";
+}
+Cat::Cat(const Cat &o) : Animal(o)
+{
+    // type = "Cat"; pas besoin car le copy ctor de Animal le fait deja
+    std::cout << "[C] Copy Constructor\n";
+}
+Cat &Cat::operator=(const Cat &o)
+{
+    Animal::operator=(o);
+    type = "Cat";
+    std::cout << "[C] Copy Assignment\n";
+    return *this;
+}
+Cat::~Cat()
+{
+    std::cout << "[C] Destructor\n";
+}
+void Cat::makeSound() const
+{
+    std::cout << "Meow Meow\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:26:46 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:06:59 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CAT_HPP
+#define CAT_HPP
+
+#include "Animal.hpp"
+
+class Cat : public Animal
+{
+public:
+    Cat();
+    Cat(const Cat &other);
+    Cat &operator=(const Cat &other);
+    virtual ~Cat();
+
+    virtual void makeSound() const;
+};
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:27:00 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:54:56 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Dog.hpp"
+#include <iostream>
+
+Dog::Dog()
+{
+    type = "Dog";
+    std::cout << "[D] Constructor\n";
+}
+Dog::Dog(const Dog &o) : Animal(o)
+{
+    type = "Dog";
+    std::cout << "[D] Copy Constructor\n";
+}
+Dog &Dog::operator=(const Dog &o)
+{
+    Animal::operator=(o);
+    // type = "Dog";
+    std::cout << "[D] Copy Assignment\n";
+    return *this;
+}
+Dog::~Dog()
+{
+    std::cout << "[D] Destructor\n";
+}
+void Dog::makeSound() const
+{
+    std::cout << "Woof Woof\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:27:03 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 16:47:06 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DOG_HPP
+#define DOG_HPP
+
+#include "Animal.hpp"
+
+class Dog : public Animal
+{
+public:
+    Dog();
+    Dog(const Dog &other);
+    Dog &operator=(const Dog &other);
+    virtual ~Dog();
+
+    virtual void makeSound() const;
+};
+#endif
+NAME = ex00
+CXX = c++
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+SRCS = main.cpp Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp
+OBJS = $(SRCS:.cpp=.o)
+HEADERS     = Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+$(OBJS): $(HEADERS)
+clean:
+	rm -f $(OBJS)
+fclean: clean
+	rm -f $(NAME)
+re: fclean all
+.PHONY: all clean fclean re
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:48:29 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:56:31 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "WrongAnimal.hpp"
+
+WrongAnimal::WrongAnimal() : type("WrongAnimal")
+{
+    std::cout << "[WA] Constructor\n";
+}
+WrongAnimal::WrongAnimal(const WrongAnimal &o) : type(o.type)
+{
+    std::cout << "[WA] Copy Constructor\n";
+}
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &o)
+{
+    type = o.type;
+    std::cout << "[WA] Copy Assignment\n";
+    return *this;
+}
+WrongAnimal::~WrongAnimal()
+{
+    std::cout << "[WA] Destructor\n";
+}
+std::string WrongAnimal::getType() const
+{
+    return type;
+}
+void WrongAnimal::makeSound() const
+{
+    std::cout << "[WA] ???\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   WrongAnimal.hpp                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:48:10 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 16:53:57 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef WRONGANIMAL_HPP
+#define WRONGANIMAL_HPP
+
+#include <string>
+#include <iostream>
+
+class WrongAnimal
+{
+protected:
+    std::string type;
+
+public:
+    WrongAnimal();
+    WrongAnimal(const WrongAnimal &other);
+    WrongAnimal &operator=(const WrongAnimal &other);
+    ~WrongAnimal();
+
+    std::string getType() const;
+    void makeSound() const;
+};
+#endif/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:54:00 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:56:31 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "WrongCat.hpp"
+#include <iostream>
+
+WrongCat::WrongCat()
+{
+    type = "WrongCat";
+    std::cout << "[WC] Constructor\n";
+}
+WrongCat::WrongCat(const WrongCat &o) : WrongAnimal(o)
+{
+    type = "WrongCat";
+    std::cout << "[WC] Copy Constructor\n";
+}
+WrongCat &WrongCat::operator=(const WrongCat &o)
+{
+    WrongAnimal::operator=(o);
+    type = "WrongCat";
+    std::cout << "[WC] Copy Assignment\n";
+    return *this;
+}
+WrongCat::~WrongCat()
+{
+    std::cout << "[WC] Destructor\n";
+}
+void WrongCat::makeSound() const
+{
+    std::cout << "Miaou???\n";
+}
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   WrongCat.hpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:54:15 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:05:29 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef WRONGCAT_HPP
+#define WRONGCAT_HPP
+#include "WrongAnimal.hpp"
+
+class WrongCat : public WrongAnimal
+{
+public:
+    WrongCat();
+    WrongCat(const WrongCat &other);
+    WrongCat &operator=(const WrongCat &other);
+    ~WrongCat();
+
+    void makeSound() const;
+};
+#endif
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nicolsan <nicolsan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/13 16:58:13 by nicolsan          #+#    #+#             */
+/*   Updated: 2025/09/13 17:19:09 by nicolsan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Animal.hpp"
+#include "Dog.hpp"
+#include "Cat.hpp"
+#include "WrongAnimal.hpp"
+#include "WrongCat.hpp"
+
+int main()
+{
+    const Animal *meta = new Animal();
+    const Animal *j = new Dog();
+    const Animal *i = new Cat();
+
+    std::cout << j->getType() << " " << std::endl;
+    std::cout << i->getType() << " " << std::endl;
+    i->makeSound();
+    j->makeSound();
+    meta->makeSound();
+    delete meta;
+    delete j;
+    delete i;
+
+    const WrongAnimal *w_a = new WrongCat();
+    w_a->makeSound();
+    delete w_a; // pas virtuel donc appelera pas le dtor, (dans les polymorphes, need virutal destructor)
+    return 0;
+}

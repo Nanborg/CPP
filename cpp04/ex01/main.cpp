@@ -38,5 +38,15 @@ int main()
         delete animals[k];
         k++;
     }
+
+    Dog basic;
+    {
+        Dog tmp = basic;
+    }
+
+    Cat cat_a;
+    Cat cat_b;
+    cat_b = cat_a;
+    
     return 0;
 }
