@@ -1,79 +1,139 @@
 
+
 #include "Fixed.hpp"
 #include <iostream>
 #include <cmath>
 
-Fixed::Fixed() : Bits(0)
-{
-    std::cout << "Default constructor called" << std::endl;
-}
-
-Fixed::Fixed(const Fixed &other) : Bits(other.Bits)
-{
-    std::cout << "Copy constructor called" << std::endl;
-    *this = other;
-}
-
+Fixed::Fixed() : Bits(0) {}
+Fixed::Fixed(const Fixed &other) : Bits(other.Bits) {}
 Fixed &Fixed::operator=(const Fixed &other)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &other)
-        this->Bits = other.Bits;
+        Bits = other.Bits;
+    return *this;
+}
+Fixed::~Fixed() {}
+
+Fixed::Fixed(int const n) : Bits(n << f_Bits) {}
+Fixed::Fixed(float const f) : Bits(static_cast<int>(roundf(f * (1 << f_Bits)))) {}
+
+float Fixed::toFloat() const { return static_cast<float>(Bits) / static_cast<float>(1 << f_Bits); }
+int Fixed::toInt() const { return Bits >> f_Bits; }
+
+int Fixed::getRawBits() const { return Bits; }
+void Fixed::setRawBits(int const raw) { Bits = raw; }
+
+bool Fixed::operator>(const Fixed &arg) const { return Bits > arg.Bits; }
+bool Fixed::operator<(const Fixed &arg) const { return Bits < arg.Bits; }
+bool Fixed::operator>=(const Fixed &arg) const { return Bits >= arg.Bits; }
+bool Fixed::operator<=(const Fixed &arg) const { return Bits <= arg.Bits; }
+bool Fixed::operator==(const Fixed &arg) const { return Bits == arg.Bits; }
+bool Fixed::operator!=(const Fixed &arg) const { return Bits != arg.Bits; }
+
+Fixed Fixed::operator+(const Fixed &arg) const
+{
+    Fixed r;
+    r.Bits = Bits + arg.Bits;
+    return r;
+}
+
+Fixed Fixed::operator-(const Fixed &arg) const
+{
+    Fixed r;
+    r.Bits = Bits - arg.Bits;
+    return r;
+}
+
+Fixed Fixed::operator*(const Fixed &arg) const
+{
+    Fixed r;
+    long tmp = static_cast<long>(Bits) * static_cast<long>(arg.Bits);
+    r.Bits = static_cast<int>(tmp >> f_Bits);
+    return r;
+}
+
+Fixed Fixed::operator/(const Fixed &arg) const
+{
+    Fixed r;
+    long num = (static_cast<long>(Bits) << f_Bits);
+    r.Bits = static_cast<int>(num / arg.Bits);
+    return r;
+}
+
+Fixed &Fixed::operator++()
+{
+    ++Bits;
     return *this;
 }
 
-Fixed::~Fixed()
+Fixed Fixed::operator++(int)
 {
-    std::cout << "Destructor called" << std::endl;
+    Fixed tmp(*this);
+    ++Bits;
+    return tmp;
 }
 
-Fixed::Fixed(int const number)
+Fixed &Fixed::operator--()
 {
-    std::cout << "Int constructor called" << std::endl;
-    Bits = number << f_Bits;
+    --Bits;
+    return *this;
 }
 
-Fixed::Fixed(float const value)
+Fixed Fixed::operator--(int)
 {
-    std::cout << "Float constructor called" << std::endl;
-    Bits = static_cast<int>(roundf(value * (1 << f_Bits)));
+    Fixed tmp(*this);
+    --Bits;
+    return tmp;
 }
 
-int Fixed::getRawBits() const
+Fixed &Fixed::min(Fixed &a, Fixed &b)
 {
-    std::cout << "getRawBits member function called" << std::endl;
-    return Bits;
+    if (a < b)
+        return a;
+    else
+        return b;
 }
 
-void Fixed::setRawBits(int const raw)
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
 {
-    std::cout << "setRawBits member function called" << std::endl;
-    Bits = raw;
+    if (a < b)
+        return a;
+    else
+        return b;
 }
 
-float Fixed::toFloat() const
+Fixed &Fixed::max(Fixed &a, Fixed &b)
 {
-    return static_cast<float>(Bits) / static_cast<float>(1 << f_Bits);
+    if (a > b)
+        return a;
+    else
+        return b;
 }
 
-int Fixed::toInt() const
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
 {
-    return Bits >> f_Bits;
+    if (a > b)
+        return a;
+    else
+        return b;
 }
 
-std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
+std::ostream &operator<<(std::ostream &os, const Fixed &fixed)
 {
-    out << fixed.toFloat();
-    return out;
+    os << fixed.toFloat();
+    return os;
 }
 
 /*
 Implémentation Fixed :
-- Constructeurs : défaut, copie, int→fixed (<<), float→fixed (roundf).
-- Opérateur = : copie Bits (avec auto-affectation).
-- Destructeur : message debug.
-- get/setRawBits : accès brut.
-- toFloat / toInt : conversions inverses.
+- Constructeurs : défaut, copie, int→fixed, float→fixed.
+- Opérateurs comparaison : > < >= <= == != (comparaison directe de Bits).
+- Opérateurs arithmétiques :
++ / - : addition/soustraction directe.
+ et * : multiplication avec cast long et >> f_Bits pour conserver précision.
+/ : division avec << f_Bits sur numérateur.
+- Incrémentation/décrémentation : préfixe (modifie et retourne *this), postfixe (retourne copie avant modif).
+- Fonctions statiques min/max : retournent la plus petite/grande valeur.
 - operator<< : affiche en float.
 */
 
@@ -95,13 +155,33 @@ public:
     Fixed &operator=(const Fixed &other);
 
     ~Fixed();
-    Fixed(int const number);
-    Fixed(float const value);
+    Fixed(int const n);
+    Fixed(float const f);
 
-    int getRawBits() const;
-    void setRawBits(int const raw);
     float toFloat() const;
     int toInt() const;
+    int getRawBits() const;
+    void setRawBits(int const raw);
+    bool operator>(const Fixed &arg) const;
+    bool operator<(const Fixed &arg) const;
+    bool operator>=(const Fixed &arg) const;
+    bool operator<=(const Fixed &arg) const;
+    bool operator==(const Fixed &arg) const;
+    bool operator!=(const Fixed &arg) const;
+
+    Fixed operator+(const Fixed &arg) const;
+    Fixed operator-(const Fixed &arg) const;
+    Fixed operator*(const Fixed &arg) const;
+    Fixed operator/(const Fixed &arg) const;
+    Fixed &operator++();
+    Fixed operator++(int);
+    Fixed &operator--();
+    Fixed operator--(int);
+
+    static Fixed &min(Fixed &left, Fixed &right);
+    static const Fixed &min(const Fixed &left, const Fixed &right);
+    static Fixed &max(Fixed &left, Fixed &right);
+    static const Fixed &max(const Fixed &left, const Fixed &right);
 };
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
@@ -111,10 +191,34 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 /*
 Classe Fixed :
 - Membres : int Bits, static const int f_Bits=8.
-- Forme canonique + constructeurs int/float.
+- Constructeurs : défaut, copie, int, float.
+- Opérateurs : comparaison, arithmétique, ++/--.
+- Fonctions statiques : min/max (const et non-const).
 - Conversions : toFloat(), toInt().
-- Surcharge operator<< pour affichage.
+- operator<< pour affichage.
 */
+
+NAME        = ex02
+CXX         = c++
+CXXFLAGS    = -Wall -Wextra -Werror -std=c++98
+
+SRCS        = Fixed.cpp main.cpp
+OBJS        = $(SRCS:.cpp=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
 
 
 #include <iostream>
@@ -123,48 +227,23 @@ Classe Fixed :
 int main(void)
 {
     Fixed a;
-    Fixed const b(10);
-    Fixed const c(42.42f);
-    Fixed const d(b);
+    Fixed const b(Fixed(5.05f) * Fixed(2));
 
-    a = Fixed(1234.4321f);
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
 
-    std::cout << "a is " << a << std::endl;
-    std::cout << "b is " << b << std::endl;
-    std::cout << "c is " << c << std::endl;
-    std::cout << "d is " << d << std::endl;
-
-    std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-    std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+    std::cout << b << std::endl;
+    std::cout << Fixed::max(a, b) << std::endl;
     return 0;
 }
 
 /*
 Test :
 - a : défaut.
-- b(10) : int→Fixed.
-- c(42.42f) : float→Fixed.
-- d(b) : copie.
-- a = Fixed(1234.4321f) : affectation d’un temporaire.
-- Vérifie affichage (operator<<) et conversion toInt().
+- b(Fixed(5.05f) * Fixed(2)) : teste float, int, *, copie.
+- Affiche a avec ++a et a++ → vérifie différence pré/postfixe.
+- Fixed::max(a, b) : teste fonction statique.
 */
-
-GCC     = g++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
-NAME     = ex01
-SRCS     = Fixed.cpp main.cpp
-OBJS     = $(SRCS:.cpp=.o)
-
-all: $(NAME)
-$(NAME): $(OBJS)
-        $(GCC) $(CFLAGS) -o $@ $^
-
-clean:
-        rm -f $(OBJS)
-fclean: clean
-        rm -f $(NAME)
-re: fclean all
-.PHONY: all clean fclean re
-c2r5s3% 
