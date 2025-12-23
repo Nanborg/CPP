@@ -1,0 +1,232 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/23 00:22:32 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/23 00:22:32 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Bureaucrat.hpp"
+
+Bureaucrat::Bureaucrat() : _name("noname"), _grade(150)
+{
+
+}
+
+Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name)
+{
+    if (grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    if (grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->_grade = grade;
+}
+
+Bureaucrat::Bureaucrat(const Bureaucrat &src) : _name(src._name)
+{
+    *this = src;
+}
+
+Bureaucrat &Bureaucrat::operator=(const Bureaucrat &other)
+{
+    if (this != &other)
+    {
+        this->_grade = other._grade;
+    }
+    return *this;
+}
+
+Bureaucrat::~Bureaucrat()
+{
+
+}
+
+const std::string Bureaucrat::getName() const
+{
+    return this->_name;
+}
+
+int Bureaucrat::getGrade() const
+{
+    return this->_grade;
+}
+
+void Bureaucrat::incrementGrade()
+{
+    if (this->_grade - 1 < 1)
+        throw Bureaucrat::GradeTooHighException();
+    this->_grade--;
+}
+
+void Bureaucrat::decrementGrade()
+{
+    if (this->_grade + 1 > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->_grade++;
+}
+
+const char *Bureaucrat::GradeTooHighException::what() const throw()
+{
+    return "Grade is too high! (Max is 1)";
+}
+
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
+    return "Grade is too low! (Min is 150)";
+}
+
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other)
+{
+    out << other.getName() << ", bureaucrat grade " << other.getGrade() << ".";
+    return out;
+}
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/23 00:21:55 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/23 00:21:55 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef BUREAUCRAT_HPP
+# define BUREAUCRAT_HPP
+
+#include <iostream>
+#include <string>
+#include <exception>
+
+class Bureaucrat
+{
+    private:
+        const std::string   _name;
+        int                 _grade;
+        Bureaucrat();
+
+    public:
+        Bureaucrat(const std::string name, int grade);
+        Bureaucrat(const Bureaucrat &src);
+        Bureaucrat &operator=(const Bureaucrat &other);
+        ~Bureaucrat();
+
+        const std::string   getName() const;
+        int                 getGrade() const;
+        void                incrementGrade();
+        void                decrementGrade();
+
+        class GradeTooHighException : public std::exception
+        {
+            public:
+                virtual const char *what() const throw();
+        };
+
+        class GradeTooLowException : public std::exception
+        {
+            public:
+                virtual const char *what() const throw();
+        };
+        
+};
+
+std::ostream &operator<<(std::ostream &out, const Bureaucrat &other);
+#endifNAME = ex00
+CXX = c++
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98
+
+SRCS = main.cpp Bureaucrat.cpp
+OBJS = $(SRCS:.cpp=.o)
+HEADERS = Bureaucrat.hpp
+
+all: $(NAME)
+
+$(OBJS): $(HEADERS)
+
+$(NAME): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+
+
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
+
+
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/23 00:22:37 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/23 00:22:37 by marvin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Bureaucrat.hpp"
+
+int main()
+{
+    std::cout << "constructors" << std::endl;
+    try
+    {
+		Bureaucrat high("Trop Haut", 0);
+    }
+    catch (std::exception &exception)
+    {
+        std::cerr << "Erreur : " << exception.what() << std::endl;
+    }
+
+	try
+	{
+		Bureaucrat Low("Trop Bas", 151);
+	}
+	catch (std::exception &exception)
+	{
+		std::cerr << "Erreur : " << exception.what() << std::endl;
+	}
+
+	std::cout << "Grade increment/decrement" << std::endl;
+	try
+	{
+		Bureaucrat Spielberg("Spielberg", 2);
+		std::cout << Spielberg << std::endl;
+		Spielberg.incrementGrade();
+		std::cout << "apres increment: " << Spielberg << std::endl;
+		Spielberg.incrementGrade();
+	}
+	catch(std::exception &exception)
+	{
+		std::cerr << "Erreur : " << exception.what() << '\n';
+	}
+
+	try
+	{
+		Bureaucrat Tarantino("Tarantino", 149);
+		std::cout << Tarantino << std::endl;
+		Tarantino.decrementGrade();
+		std::cout << "apres decrement: " << Tarantino << std::endl;
+		Tarantino.decrementGrade();
+	}
+	catch(std::exception &exception)
+	{
+		std::cerr << "Erreur : " << exception.what() << '\n';
+	}
+
+	return 0;  
+}
