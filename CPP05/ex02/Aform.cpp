@@ -42,11 +42,11 @@ const std::string AForm::getname() const
     return _name;
 }
 
-bool AForm::getisSigned() const
+bool AForm::isSigned() const
 {
     return _isSigned;
 }
-int AForm::getgradeSign() const
+int AForm::getGradeSign() const
 {
     return _gradeSign;
 }
@@ -85,8 +85,8 @@ const char *AForm::NotSignedException::what() const throw()
 
 std::ostream &operator<<(std::ostream &out, const AForm &form)
 {
-    out << "AForm Name: " << form.getname() << ", Signed: " << (form.getisSigned() ? "Yes" : "No")
-        << ", Grade Required to Sign: " << form.getgradeSign()
+    out << "AForm Name: " << form.getname() << ", Signed: " << (form.isSigned() ? "Yes" : "No")
+        << ", Grade Required to Sign: " << form.getGradeSign()
         << ", Grade Required to Execute: " << form.getgradeExec();
     return out;
 }

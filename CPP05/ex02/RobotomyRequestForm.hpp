@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/24 13:48:14 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/24 13:48:14 by marvin           ###   ########.fr       */
+/*   Created: 2025/12/24 15:25:57 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/24 15:25:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-#define SHRUBBERYCREATIONFORM_HPP
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
-#include "AForm.hpp"
-#include <fstream>
 
-class ShrubberyCreationForm : public AForm 
+#include "Aform.hpp"
+#include <cstdlib>
+
+class RobotomyRequestForm : public AForm 
 {
     private:
         std::string _target;
-        ShrubberyCreationForm();
+        RobotomyRequestForm();
     public:
-    
-        ShrubberyCreationForm(std::string target);
-        ShrubberyCreationForm(const ShrubberyCreationForm &src);
-        ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
-        ~ShrubberyCreationForm();
+        RobotomyRequestForm(std::string target);
+        RobotomyRequestForm(const RobotomyRequestForm &src);
+        RobotomyRequestForm &operator=(const RobotomyRequestForm &other);
+        ~RobotomyRequestForm();
 
         void execAction() const;
 };
-
 
 #endif

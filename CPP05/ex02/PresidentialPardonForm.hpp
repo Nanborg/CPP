@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/24 13:48:14 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/24 13:48:14 by marvin           ###   ########.fr       */
+/*   Created: 2025/12/24 15:27:20 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/24 15:27:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-#define SHRUBBERYCREATIONFORM_HPP
+#ifndef PRESIDENTIALPARDONFORM_HPP
+#define PRESIDENTIALPARDONFORM_HPP
 
-#include "AForm.hpp"
-#include <fstream>
+#include "Aform.hpp"
 
-class ShrubberyCreationForm : public AForm 
+class PresidentialPardonForm : public AForm
 {
     private:
         std::string _target;
-        ShrubberyCreationForm();
+        PresidentialPardonForm();
     public:
-    
-        ShrubberyCreationForm(std::string target);
-        ShrubberyCreationForm(const ShrubberyCreationForm &src);
-        ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
-        ~ShrubberyCreationForm();
+        PresidentialPardonForm(std::string target);
+        PresidentialPardonForm(const PresidentialPardonForm &src);
+        PresidentialPardonForm &operator=(const PresidentialPardonForm &other);
+        ~PresidentialPardonForm();
 
-        void execAction() const;
+
+    void execAction() const;
 };
-
 
 #endif

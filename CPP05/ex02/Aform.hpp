@@ -17,7 +17,7 @@
 # include <string>
 # include "Bureaucrat.hpp"
 
-class Bureaucrat;;
+class Bureaucrat;
 
 class AForm
 {
@@ -35,8 +35,8 @@ class AForm
         virtual ~AForm();
 
         const std::string getname() const;
-        bool getisSigned() const;
-        int getgradeSign() const;
+        bool isSigned() const;
+        int getGradeSign() const;
         int getgradeExec() const;
 
         void beSigned(const Bureaucrat &bureaucrat);

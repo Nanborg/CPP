@@ -16,7 +16,6 @@
 # include <iostream>
 # include <string>
 # include <exception>
-#include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include "AForm.hpp"
 
