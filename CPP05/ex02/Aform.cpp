@@ -37,7 +37,7 @@ AForm &AForm::operator=(const AForm &other)
 AForm::~AForm()
 {}
 
-const std::string AForm::getname() const
+const std::string AForm::getName() const
 {
     return _name;
 }
@@ -50,7 +50,7 @@ int AForm::getGradeSign() const
 {
     return _gradeSign;
 }
-int AForm::getgradeExec() const
+int AForm::getGradeExec() const
 {
     return _gradeExec;
 }
@@ -85,9 +85,9 @@ const char *AForm::NotSignedException::what() const throw()
 
 std::ostream &operator<<(std::ostream &out, const AForm &form)
 {
-    out << "AForm Name: " << form.getname() << ", Signed: " << (form.isSigned() ? "Yes" : "No")
+    out << "AForm Name: " << form.getName() << ", Signed: " << (form.isSigned() ? "Yes" : "No")
         << ", Grade Required to Sign: " << form.getGradeSign()
-        << ", Grade Required to Execute: " << form.getgradeExec();
+        << ", Grade Required to Execute: " << form.getGradeExec();
     return out;
 }
 

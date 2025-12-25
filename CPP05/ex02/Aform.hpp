@@ -34,10 +34,10 @@ class AForm
         AForm &operator=(const AForm &other);
         virtual ~AForm();
 
-        const std::string getname() const;
+        const std::string getName() const;
         bool isSigned() const;
         int getGradeSign() const;
-        int getgradeExec() const;
+        int getGradeExec() const;
 
         void beSigned(const Bureaucrat &bureaucrat);
         void execute(Bureaucrat const & executor) const;
