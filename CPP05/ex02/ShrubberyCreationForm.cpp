@@ -33,7 +33,29 @@ void ShrubberyCreationForm::execAction() const {
     std::ofstream ofs(filename.c_str());
     if (ofs.is_open()) 
     {
-        ofs << "    oxoxoo    ooxoo\n  ooxoxo oo  oxoxooo\n oooo xxoxoo ooo ooox\n oxo o oxoxo  ooo oox\n  oxo xooxoooo o ooo\n    ooo\\oo\\  /o/o\n        \\  \\/ /\n         |   /\n         |  |\n         | D|\n         |  |\n         |  |\n  ______/____\\____\n";
+        ofs << "                          XXX                            \n";
+        ofs << "                          XXX                            \n";
+        ofs << "                          XXX                            \n";
+        ofs << "                          XXX                            \n";
+        ofs << "                XXXXXXXXXXXXXXXXXXXXXXX                  \n";
+		ofs << "                         XXXXX                           \n";
+        ofs << "                        XXXXXXX                          \n";
+		ofs << "                      XX  XXX  XX                        \n";
+		ofs << "                  XXX     XXX    XXX                     \n";
+		ofs << "              XXXXX       XXX      XXXXX                 \n";
+		ofs << "                          XXX                            \n";
+		ofs << "              XXX         XXX         XXX                \n";
+		ofs << "              XXX                     XXX                \n";
+		ofs << "              XXX                     XXX                \n";
+		ofs << "     XXXXXXXXXXXXXXXXXXXXX    XXXXXXXXXXXXXXXXXXXX       \n";
+		ofs << "             XXXXX                   XXXXX               \n";
+		ofs << "            XXXXXXX                 XXXXXXX              \n";
+		ofs << "           XX XXX XX               XX XXX XX             \n";
+		ofs << "         XX   XXX   XX           XX   XXX   XX           \n";
+		ofs << "       XX     XXX              XX     XXX     XX         \n";
+		ofs << "     XX       XXX            XX       XXX       XX       \n";
+		ofs << "              XXX                     XXX                \n";
+		ofs << "                                                         \n";
         ofs.close();
     }
 }
