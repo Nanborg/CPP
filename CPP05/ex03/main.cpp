@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
+#include "Intern.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -20,34 +21,38 @@
 
 int main()
 {
-    std::srand(std::time(NULL));
+    Intern intern;
+    Bureaucrat Bolos("Bolos", 1);
+    AForm* form;
 
-    try
+    form = intern.makeForm("shrubbery creation", "pelouze");
+    if (form)
     {
-        Bureaucrat Stalin("Stalin", 1);
-        Bureaucrat Kroutchev("Kroutchev", 150);
-
-        ShrubberyCreationForm f1("Goulag");
-        RobotomyRequestForm f2("Coupon");
-        PresidentialPardonForm f3("Capitalist");
-        std::cout << "signatures" << std::endl;
-        Stalin.signForm(f1);
-        Stalin.signForm(f2);
-        Stalin.signForm(f3);
-
-        std::cout << "executions" << std::endl;
-        Stalin.executeForm(f1);
-        Stalin.executeForm(f2);
-        Stalin.executeForm(f3);
-
-        std::cout << "\ntry with low level bureaucrat\n" << std::endl;
-        Kroutchev.signForm(f1);
-        Kroutchev.executeForm(f1);
+        Bolos.signForm(*form);
+        Bolos.executeForm(*form);
+        delete form;
     }
-    catch(const std::exception& exception)
+
+    form = intern.makeForm("robotomy request", "H2G2");
+    if (form)
     {
-        std::cerr << "fail" << exception.what() << std::endl;
+        Bolos.signForm(*form);
+        Bolos.executeForm(*form);
+        delete form;
+    }
+
+    form = intern.makeForm("presidential pardon", "Stalin");
+    if (form)
+    {
+        Bolos.signForm(*form);
+        Bolos.executeForm(*form);
+        delete form;
     }
     
+    form = intern.makeForm("unknown form", "target");
+    if (form)
+    {
+        delete form;
+    }
     return 0;
 }
