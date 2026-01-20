@@ -2,9 +2,9 @@ NAME = ex02
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRCS = 
+SRCS = Base.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
-HEADERS = 
+HEADERS = Base.hpp A.hpp B.hpp C.hpp
 
 all: $(NAME)
 
