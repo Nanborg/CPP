@@ -16,20 +16,20 @@
 
 class Awesome {
 public:
-	Awesome(void) : _n(0) {}
-	Awesome( int n ) : _n( n ) {}
-	Awesome & operator= (Awesome & a) { _n = a._n; return *this; }
-	bool operator==( Awesome const & other ) const { return (this->_n == other._n); }
-	bool operator!=( Awesome const & other ) const{ return (this->_n != other._n); }
-	bool operator>( Awesome const & other ) const { return (this->_n > other._n); }
-	bool operator<( Awesome const & other ) const { return (this->_n < other._n); }
-	bool operator>=( Awesome const & other ) const { return (this->_n >= other._n); }
-	bool operator<=( Awesome const & other ) const { return (this->_n <= other._n); }
-	int get_n() const { return _n; }
+	Awesome(void) : _size(0) {}
+	Awesome( int n ) : _size( n ) {}
+	Awesome & operator= (Awesome & a) { _size = a._size; return *this; }
+	bool operator==( Awesome const & other ) const { return (this->_size == other._size); }
+	bool operator!=( Awesome const & other ) const{ return (this->_size != other._size); }
+	bool operator>( Awesome const & other ) const { return (this->_size > other._size); }
+	bool operator<( Awesome const & other ) const { return (this->_size < other._size); }
+	bool operator>=( Awesome const & other ) const { return (this->_size >= other._size); }
+	bool operator<=( Awesome const & other ) const { return (this->_size <= other._size); }
+	int get_size() const { return _size; }
 private:
-	int _n;
+	int _size;
 };
-std::ostream & operator<<(std::ostream & o, const Awesome &a) { o << a.get_n(); return o; }
+std::ostream & operator<<(std::ostream & o, const Awesome &a) { o << a.get_size(); return o; }
 
 int main(void) 
 {
