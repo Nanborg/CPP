@@ -27,7 +27,7 @@ class ScalarConverter {
         ScalarConverter();
         ScalarConverter(ScalarConverter const & src);
         ~ScalarConverter();
-        ScalarConverter & operator=(ScalarConverter const & rhs);
+        ScalarConverter & operator=(ScalarConverter const & other);
 
         static bool isPseudoLiteral(const std::string & input);
         static void printPseudoLiteral(const std::string & input);
