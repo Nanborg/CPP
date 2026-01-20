@@ -63,13 +63,22 @@ void ScalarConverter::printPseudoLiteral(const std::string &input)
 
 void ScalarConverter::convert(const std::string &input)
 {
+	if (input.empty())
+	{	
+	    std::cout << "char: impossible" << std::endl;
+	    std::cout << "int: impossible" << std::endl;
+	    std::cout << "float: impossible" << std::endl;
+	    std::cout << "double: impossible" << std::endl;
+	    return;
+	}
+
     if (isPseudoLiteral(input))
     {
         printPseudoLiteral(input);
         return;
     }
 
-    char d = 0;
+    double d = 0;
 	char * endptr = NULL;
 
 	if (input.length() == 1 && !std::isdigit(input[0]))
@@ -101,21 +110,16 @@ void ScalarConverter::convert(const std::string &input)
 	}
 	else
 	{
-	    std::cout << "' " << static_cast<char>(d) << " '" << std::endl;
+	    std::cout << "'" << static_cast<char>(d) << "'" << std::endl;
 	}
 
-	std::cout << "int: ":
-	if (d < std::numeric_limits<int>::min() || d < std::numeric_limits<int>::max() ||
-	std::isnan(d))
-	{
-	    std::cout << "impossible" << std::endl;
-	}
+	std::cout << "int: ";
+	if (std::isnan(d) || d < std::numeric_limits<int>::min() || d > std::numeric_limits<int>::max())
+    	std::cout << "impossible" << std::endl;
 	else
-	{
-	    std::cout << static_cast<int>(d) << std::endl;
-	}
+    	std::cout << static_cast<int>(d) << std::endl;
 
-	if (d - static_cast<int>(d) == 0)
+	if (d - static_cast<long>(d) == 0)
 	{
 	    std::cout << "float: " << std::fixed << std::setprecision(1) 
 	    << static_cast<float>(d) << "f" << std::endl;
@@ -124,7 +128,7 @@ void ScalarConverter::convert(const std::string &input)
 	}
 	else
 	{
-	    std::cout << "float: " static_cast<float>(d) "f" << std::endl;
+	    std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
 	    std::cout << "double:  " << d << std::endl;
 	}
 }

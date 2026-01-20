@@ -27,13 +27,13 @@ class ScalarConverter {
         ScalarConverter();
         ScalarConverter(ScalarConverter const & src);
         ~ScalarConverter();
-        ScalarConverter &operator=(ScalarConverter const & rhs);
+        ScalarConverter & operator=(ScalarConverter const & rhs);
 
-        static bool isPseudoLiteral(const std::string& input);
-        static void printPseudoLiteral(const std::string& input);
+        static bool isPseudoLiteral(const std::string & input);
+        static void printPseudoLiteral(const std::string & input);
 
     public:
-        static void convert(const std::string &input);
+        static void convert(const std::string & input);
 
 };
 #endif
