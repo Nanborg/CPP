@@ -1,10 +1,10 @@
-NAME = ex00
+NAME = ex02
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRCS = 
+SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
-HEADERS = 
+HEADERS = MutantStack.hpp
 
 all: $(NAME)
 
