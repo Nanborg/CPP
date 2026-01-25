@@ -25,16 +25,16 @@ class BitcoinExchange
 {
     private:
         std::map<std::string, float> my_data;
-        bool isValidDate(const std::string &date) const;
-        bool isValidValue(const std::string &value, float &val) const;
-        void trim(std::string &s) const;
+        bool checkDate(const std::string &date) const;
+        bool checkValue(const std::string &value, float &val) const;
+        void cleanString(std::string &s) const;
     public:
         BitcoinExchange();
         BitcoinExchange(const BitcoinExchange &src);
         BitcoinExchange &operator=(const BitcoinExchange &other);
         ~BitcoinExchange();
-        void loadDatabase(const std::string & filename);
-        void processInput(const std::string &filename);
+        void readCsv(const std::string & filename);
+        void readInputFile(const std::string &filename);
 
 
 };
