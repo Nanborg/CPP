@@ -19,6 +19,7 @@
 int main()
 {
     //vecteurs
+    std::cout << "VECTORS" << std::endl;
     std::vector<int> vec;
     vec.push_back(15);
     vec.push_back(30);
@@ -36,6 +37,7 @@ int main()
         std::cerr << ex.what() << std::endl;
     }
     
+    std::cout << "LISTS" << std::endl;
     //listes
     std::list<int> liste;
     liste.push_back(2);
@@ -55,6 +57,7 @@ int main()
     }
 
     //deques
+    std::cout << "DEQUES" << std::endl;
     std::deque<int> deq;
     deq.push_back(80);
     deq.push_back(140);
