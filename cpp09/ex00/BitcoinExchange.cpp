@@ -45,6 +45,11 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 {
     if (date.length() != 10 || date[4] != '-' || date[7] != '-')
         return false;
+    if (!std::isdigit(date[0]) || !std::isdigit(date[1])
+        || !std::isdigit(date[2]) || !std::isdigit(date[3])
+        || !std::isdigit(date[5]) || !std::isdigit(date[6])
+        || !std::isdigit(date[8]) || !std::isdigit(date[9]))
+        return false;
     int year, month, day;
     std::istringstream ss_year(date.substr(0, 4));
     std::istringstream ss_month(date.substr(5, 2));
@@ -66,9 +71,9 @@ bool BitcoinExchange::checkDate(const std::string &date) const
 
 bool BitcoinExchange::checkValue(const std::string &value, float &val) const
 {
-    char* end;
-    val = std::strtof(value.c_str(), &end);
-    if (end == value.c_str() || *end != '\0')
+    std::istringstream ss(value);
+    ss >> val;
+    if (ss.fail() || !ss.eof())
         return false;
     return true;
 }
@@ -85,13 +90,22 @@ void BitcoinExchange::readCsv(const std::string & filename)
     std::getline(file, line);
     while (std::getline(file, line))
     {
-        size_t separrateur = line.find(',');
-        if (separrateur != std::string::npos)
-        {
-            std::string date = line.substr(0,separrateur);
-            float rate = std::atof(line.substr(separrateur + 1).c_str());
-            my_data[date] = rate;
-        }
+size_t separrateur = line.find(',');
+if (separrateur == std::string::npos)
+    continue;
+
+std::string date = line.substr(0, separrateur);
+cleanString(date);
+std::string rateStr = line.substr(separrateur + 1);
+cleanString(rateStr);
+
+std::istringstream ss(rateStr);
+float rate;
+ss >> rate;
+if (ss.fail() || !ss.eof())
+    continue;
+
+my_data[date] = rate;
     }
     file.close();
 }
@@ -102,19 +116,23 @@ void BitcoinExchange::readInputFile(const std::string &filename)
     if (!file.is_open())
     {
         std::cerr << "Error cant open file" << std::endl;
-        return;
+        std::exit(1);
     }
 
     std::string line;
     std::getline(file, line);
+    cleanString(line);
     if (line != "date | value")
-    { }
+    {
+        std::cerr << "Error: bad input " << line << std::endl;
+        return;
+    }
     while (std::getline(file, line))
     {
         size_t separrateur = line.find('|');
         if (separrateur == std::string::npos)
         {
-            std::cerr << "Error: bad input => " << line << std::endl;
+            std::cerr << "Error: bad input " << line << std::endl;
             continue;
         }
         std::string date = line.substr(0, separrateur);
@@ -144,12 +162,19 @@ void BitcoinExchange::readInputFile(const std::string &filename)
             std::cerr << "Error num too large " << std::endl;
             continue;
         }
+        if (my_data.empty())
+        {
+            std::cerr << "Error data empty " << std::endl;
+            return;
+        }
         std::map<std::string, float>::iterator it = my_data.upper_bound(date);
+
         if (it == my_data.begin())
-            {
-                std::cout << "Error data/date " << std::endl;
-                continue;
-            }
+        {
+            std::cerr << "Error data/date " << std::endl;
+            continue;
+        }
+        
         --it;
         std::cout << date << " => " << val << " = " << std::fixed << std::setprecision(2) << val * it->second << std::endl;
 
